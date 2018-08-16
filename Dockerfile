@@ -6,6 +6,9 @@ RUN groupadd -r node && useradd -m -g node node
 # Gosu
 ENV GOSU_VERSION 1.10
 
+# Meteor Build
+ENV TOOL_NODE_FLAGS --max-old-space-size=8192
+
 # MongoDB
 ENV MONGO_VERSION 3.4.10
 ENV MONGO_MAJOR 3.4
@@ -44,7 +47,7 @@ ONBUILD ENV INSTALL_GRAPHICSMAGICK $INSTALL_GRAPHICSMAGICK
 
 # Node flags for the Meteor build tool
 ONBUILD ARG TOOL_NODE_FLAGS
-ONBUILD ENV TOOL_NODE_FLAGS $TOOL_NODE_FLAGS
+ONBUILD ENV TOOL_NODE_FLAGS --max-old-space-size=8192
 
 # optionally custom apt dependencies at app build time
 ONBUILD RUN if [ "$APT_GET_INSTALL" ]; then apt-get update && apt-get install -y $APT_GET_INSTALL; fi
